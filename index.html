@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSXAK Cheat Panel</title>
+    <style>
+        /* Загальні стилі */
+        
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #121212;
+            /* Темна тема */
+            color: #ffffff;
+            overflow: hidden;
+        }
+        
+        .container {
+            max-width: 500px;
+            margin: 100px auto;
+            text-align: center;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #ff5722;
+            /* Акцентний колір */
+        }
+        
+        label {
+            font-size: 1em;
+            margin-bottom: 10px;
+            display: block;
+            text-align: left;
+        }
+        
+        input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #252525;
+            color: #ffffff;
+            font-size: 1em;
+        }
+        
+        button {
+            width: 100%;
+            padding: 10px 0;
+            font-size: 1em;
+            font-weight: bold;
+            background-color: #ff5722;
+            /* Акцентний колір */
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        button:hover {
+            background-color: #e64a19;
+            /* Темніший відтінок */
+        }
+        
+        #result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #76ff03;
+            /* Зелений колір для результату */
+        }
+        /* Анімація сніжинок */
+        
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh);
+                opacity: 0.2;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Панель генерації -->
+    <div class="container">
+        <h1>OSXAK Cheat Panel</h1>
+        <form id="codeGeneratorForm">
+            <label for="param">Введіть нікнейм для генерації коду:</label>
+            <input type="text" id="param" name="param" placeholder="Введіть нікнейм..." required>
+            <button type="submit">Згенерувати код</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        // Функціонал генерації кодів
+        document.getElementById('codeGeneratorForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const param = document.getElementById('param').value.trim();
+            if (param === '') {
+                document.getElementById('result').textContent = 'Будь ласка, введіть нікнейм!';
+                return;
+            }
+            const generatedCode = btoa(param); // Перетворення тексту у формат Base64
+            document.getElementById('result').textContent = `Згенерований код: ${generatedCode}`;
+        });
+
+        // Функція створення сніжинок
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.style.left = Math.random() * 100 + 'vw'; // Випадкове розташування по горизонталі
+            snowflake.style.animationDuration = Math.random() * 5 + 3 + 's'; // Випадкова швидкість падіння
+            snowflake.style.opacity = Math.random() * 0.5 + 0.5; // Випадкова прозорість
+            snowflake.style.width = snowflake.style.height = Math.random() * 10 + 5 + 'px'; // Випадковий розмір
+            document.body.appendChild(snowflake);
+
+            // Видалення сніжинки після закінчення анімації
+            setTimeout(() => {
+                snowflake.remove();
+            }, 8000);
+        }
+
+        // Створення сніжинок кожні 300 мс
+        setInterval(createSnowflake, 300);
+    </script>
+</body>
+
+</html>
